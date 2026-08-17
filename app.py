@@ -5,17 +5,17 @@ import gdown
 import os
 
 file_id='1v4jEYtS8cj_rpDL_GDEtNp2kehZbdjiV'
-url='https://drive.google.com/file/d/1v4jEYtS8cj_rpDL_GDEtNp2kehZbdjiV'
+url=f'https://drive.google.com/file/d/1v4jEYtS8cj_rpDL_GDEtNp2kehZbdjiV'
 model_path="trained_plant_disease_model.keras"
 
 if not os.path.exists(model_path):
     st.warning("Downloading model from Google Drive...")
-    gdown.download(url, model_path, quiet=False,fuzzy=True)
+    gdown.download(url, model_path, quiet=False)
 
 
 model_path = "trained_plant_disease_model.keras"
 def model_prediction(test_image):
-    model = tf.keras.models.load_model(model_path)
+    model = tf.keras.models.load_model(model_path,compile=False)
     image = tf.keras.preprocessing.image.load_img(test_image,target_size=(128,128))
     input_arr = tf.keras.preprocessing.image.img_to_array(image)
     input_arr = np.array([input_arr]) #convert single image to batch
